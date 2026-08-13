@@ -30,9 +30,9 @@ body.pagina-historia {
   --hst-banda: var(--hst-noche2);
   --hst-sombra: 0 18px 50px rgba(0, 0, 0, .45);
   --hst-foto: grayscale(1) brightness(.62) sepia(.35) hue-rotate(178deg) saturate(1.6);
-  /* Fondos de mapa. En penumbra el mapa es claro sobre azul oscuro: apenas una
-     neblina. Pasado ese umbral empieza a competir con el texto. */
-  --hst-mapa-op: .09;
+  /* Fondos de mapa. El del inicio va en negativo y se funde en screen, así que
+     el campo negro no aporta nada: lo único que sube son rutas, río y rótulos. */
+  --hst-mapa-op: .27;
 
   --hst-ease: cubic-bezier(.4, 0, .2, 1);
   --hst-salida: cubic-bezier(.2, .7, .3, 1);
@@ -54,8 +54,9 @@ body.pagina-historia.hst-on {
   --hst-banda: var(--grismedio);
   --hst-sombra: 0 18px 50px rgba(19, 73, 137, .18);
   --hst-foto: none;
-  /* Sobre blanco el mismo gris casi no se ve: hay que subirlo bastante. */
-  --hst-mapa-op: .5;
+  /* El del cierre se funde en multiply: el blanco del mapa desaparece y solo
+     pesan el polígono, las rutas y los rótulos. */
+  --hst-mapa-op: .2;
 }
 
 /*--------------------------------------------------------------
@@ -409,24 +410,31 @@ body.pagina-historia,
   transition: opacity 1200ms ease;
 }
 
-/* Inicio: se desvanece antes del hito 04, para no arrastrarse por toda la
-   línea de tiempo. */
+/* Inicio: detrás del hito 01, y se desvanece antes del 04 para no arrastrarse
+   por toda la línea de tiempo.
+   El mapa está en negativo. Con screen, el negro del campo no aporta nada y
+   solo se suman las rutas, el río y los rótulos: es fondo, no un rectángulo. */
 .hst-timeline::before {
   top: 0;
-  height: min(1500px, 160vh);
+  height: min(1400px, 150vh);
   background-image: url("../img/historia/fondo-territorio.webp");
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 50%, transparent 100%);
-          mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 50%, transparent 100%);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 52%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 52%, transparent 100%);
 }
 
-/* Cierre: óvalo centrado, para que la silueta del área quede detrás de las
-   cifras y se apague contra los bordes de la banda. */
+/* Cierre: acá el mapa va normal sobre la banda clara. Con multiply el blanco
+   desaparece y solo pesan el polígono, las rutas y los rótulos. */
 .hst-hoy::before {
   top: 0;
   bottom: 0;
   background-image: url("../img/historia/fondo-cobertura.webp");
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 28%, transparent 76%);
-          mask-image: radial-gradient(ellipse at center, #000 28%, transparent 76%);
+  /* No va a sangre: a tamaño completo se venía encima del texto. Al 72% el
+     mapa queda contenido dentro de la banda y deja respirar a las cifras. */
+  background-size: 72% auto;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 40%, transparent 84%);
+          mask-image: radial-gradient(ellipse at center, #000 40%, transparent 84%);
 }
 
 /* Sin esto el ::before, que está posicionado, tapa el contenido estático. */

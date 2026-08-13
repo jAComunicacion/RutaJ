@@ -29,7 +29,10 @@
     <link href="assets/css/components.min.css" rel="stylesheet">
     <link href="assets/css/responsive.min.css" rel="stylesheet">
     <!-- CSS propio de esta página (no se carga en ninguna otra) -->
-    <link href="assets/css/historia.css" rel="stylesheet">
+    <!-- El ?v= es un rompe-caché: subirle el número obliga al navegador a
+         bajar la hoja de nuevo. Hay que incrementarlo en cada cambio de CSS,
+         si no el visitante sigue viendo la versión vieja. -->
+    <link href="assets/css/historia.css?v=4" rel="stylesheet">
 
     <!-- Datos estructurados -->
     <script type="application/ld+json">
@@ -412,7 +415,44 @@
                     </div>
                 </article>
 
-                <!-- ---------- HITO 12 · Junio de 2026 — El Parque Solar ----------
+                <!-- ---------- HITO 12 · Desde 2022 — La repostación ----------
+                     Llena el hueco entre los galpones y el Parque Solar. El sujeto
+                     es la Cooperativa: sin nombres ni menciones a la conducción. -->
+                <article class="hst-hito" data-poste>
+                    <figure class="hst-media" data-aos="fade-up">
+                        <img src="assets/img/historia/h12-repostacion.webp"
+                             alt="Un poste de madera inclinado junto a la columna de hormigón ya plantada, con el camión con hidrogrúa de la Cooperativa detenido en el camino rural"
+                             width="1100" height="1100" loading="lazy" decoding="async">
+                        <figcaption>El poste de madera y la columna de hormigón, uno al lado del otro</figcaption>
+                    </figure>
+
+                    <div class="hst-cuerpo">
+                        <p class="hst-anio" data-aos="fade-up" aria-hidden="true">2022</p>
+                        <p class="hst-rotulo" data-aos="fade-up" data-aos-delay="120">Repostación (renovación del tendido)</p>
+                        <h3 class="hst-tit" data-aos="fade-up" data-aos-delay="120">
+                            <span class="hst-tit-fecha"><time datetime="2022">Desde 2022</time></span>
+                            Del palo al hormigón
+                        </h3>
+                        <div class="hst-caja" data-aos="fade-up" data-aos-delay="240">
+                            <p>La Cooperativa lleva la luz a usuarios muy dispersos: muchos kilómetros de
+                                línea para pocos medidores. En una ciudad, una cuadra concentra muchos
+                                usuarios; en el campo, esa misma distancia puede tener uno solo. Sostener
+                                el servicio en esas condiciones no es rentable, y cada temporal de la zona
+                                rural dejaba a muchos asociados sin luz.</p>
+                            <p>En 2022 se tomó la decisión de reemplazar los viejos postes de madera por
+                                columnas de hormigón. Después vinieron la compra de las columnas, la
+                                logística para moverlas por los caminos rurales y la maquinaria para
+                                plantarlas.</p>
+                            <p>Son 420 kilómetros de repostación: se gasta una vez y se deja de gastar
+                                después de cada tormenta.</p>
+                        </div>
+                        <p class="hst-dato" data-aos="fade-up" data-aos-delay="240">
+                            <strong>420 km</strong> de tendido repostado
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ---------- HITO 13 · Junio de 2026 — El Parque Solar ----------
                      Cierra el arco: de la luz que llegó de afuera en 1973
                      a la que hoy la Cooperativa genera. Única foto documental
                      real de toda la línea de tiempo. -->
@@ -634,7 +674,7 @@
     <script src="assets/js/animations.min.js" defer></script>
     <script src="assets/js/main.min.js" defer></script>
     <!-- JS propio de esta página (no se carga en ninguna otra) -->
-    <script src="assets/js/historia.js" defer></script>
+    <script src="assets/js/historia.js?v=2" defer></script>
 
     <!-- Google Tag Manager -->
     <script>

@@ -72,8 +72,23 @@ const CARPETAS_FUERA = new Set([
 
 // Archivos sueltos que no se publican.
 const ARCHIVOS_FUERA = new Set([
-  ".gitignore", ".ftpquota", "package.json", "package-lock.json",
-  "assets/img/historia/h09-frente-propio.jpeg"
+  // Del repositorio, no del sitio.
+  ".gitignore", ".gitattributes", "README.md",
+  "package.json", "package-lock.json", ".ftpquota", "forms/Readme.txt",
+
+  // Configuración de IIS. Neolo es Linux y usa .htaccess: subirlo no hace
+  // nada bueno y puede confundir a quien mire el servidor mañana.
+  "Web.config",
+
+  // Original sin optimizar de la foto del frente; la publicada es h09-frente.webp
+  "assets/img/historia/h09-frente-propio.jpeg",
+
+  // Clips todavía sin asignar a ningún hito: no están referenciados por
+  // historia.html, así que subirlos sería peso muerto en el servidor.
+  "assets/video/historia/h06-clip-obra.mp4",
+  "assets/video/historia/hoy-clip-red.mp4",
+  "assets/img/historia/h06-clip-obra-poster.webp",
+  "assets/img/historia/hoy-clip-red-poster.webp"
 ]);
 
 function seExcluye(rel) {
@@ -111,7 +126,11 @@ function recorrer(dir, base = "") {
 # 4. Inventario remoto
 --------------------------------------------------------------*/
 
-async function listarRemoto(client, dir, base = "") {
+// Recorre el servidor. Por defecto entra SOLO a las carpetas donde tenemos
+// archivos locales: el servidor arrastra miles de archivos de versiones viejas
+// del sitio y recorrerlo entero tarda minutos sin aportar nada.
+// Con `completo` en true los recorre todos (bandera --huerfanos).
+async function listarRemoto(client, dir, base = "", carpetas = null, completo = false) {
   const encontrados = new Map();
   let entradas;
   try {
@@ -124,7 +143,8 @@ async function listarRemoto(client, dir, base = "") {
     const rel = base ? `${base}/${e.name}` : e.name;
     if (e.isDirectory) {
       if (CARPETAS_FUERA.has(e.name)) continue;
-      for (const [k, v] of await listarRemoto(client, `${dir}/${e.name}`, rel)) {
+      if (!completo && carpetas && !carpetas.has(rel)) continue;
+      for (const [k, v] of await listarRemoto(client, `${dir}/${e.name}`, rel, carpetas, completo)) {
         encontrados.set(k, v);
       }
     } else if (e.isFile) {
@@ -132,6 +152,18 @@ async function listarRemoto(client, dir, base = "") {
     }
   }
   return encontrados;
+}
+
+// Toda carpeta que contenga archivos locales, más sus carpetas padre: son las
+// únicas ramas del servidor que necesitamos mirar.
+function carpetasDeInteres(locales) {
+  const set = new Set();
+  for (const a of locales) {
+    const partes = a.rel.split("/");
+    partes.pop();
+    for (let i = 1; i <= partes.length; i++) set.add(partes.slice(0, i).join("/"));
+  }
+  return set;
 }
 
 async function bajarManifiesto(client) {
@@ -203,8 +235,14 @@ async function main() {
       console.log("\nNo hay manifiesto en el servidor: es la primera corrida.");
       console.log("Comparo por presencia y peso; a partir de la próxima, por hash.");
     }
-    const remotos = await listarRemoto(client, CONFIG.raizRemota);
-    console.log(`${remotos.size} archivos en el servidor.`);
+    const completo = args.includes("--huerfanos");
+    const remotos = await listarRemoto(
+      client, CONFIG.raizRemota, "", carpetasDeInteres(locales), completo
+    );
+    console.log(
+      `${remotos.size} archivos en el servidor` +
+      (completo ? " (recorrido completo)." : " dentro de las carpetas del sitio.")
+    );
 
     const faltan = [];   // no están arriba — el error de ayer
     const cambiaron = []; // están pero son distintos
@@ -213,9 +251,11 @@ async function main() {
     for (const a of locales) {
       const pesoRemoto = remotos.get(a.rel);
       if (pesoRemoto === undefined) { faltan.push(a); continue; }
-      if (manifiesto) {
+      if (manifiesto && a.rel in manifiesto) {
         if (manifiesto[a.rel] !== a.hash) cambiaron.push(a);
       } else if (pesoRemoto !== a.peso) {
+        // Sin registro en el manifiesto (pasa tras una corrida con --solo):
+        // se cae al mismo criterio de la primera vez, el peso.
         cambiaron.push(a);
       } else {
         dudosos.push(a);
@@ -243,7 +283,11 @@ async function main() {
     }
     if (huerfanos.length) {
       titulo(`SOLO EN EL SERVIDOR — ${huerfanos.length}`);
-      console.log("  (no se borran, es solo información)");
+      console.log(
+        completo
+          ? "  (no se borran, es solo información)"
+          : "  (no se borran. Solo las carpetas del sitio: --huerfanos recorre todo)"
+      );
       for (const r of huerfanos.slice(0, 30)) console.log(`  ? ${r}`);
       if (huerfanos.length > 30) console.log(`  … y ${huerfanos.length - 30} más`);
     }
@@ -282,8 +326,9 @@ async function main() {
       }
     }
 
-    // Manifiesto nuevo: lo verificado en esta corrida más lo que ya estaba bien.
-    const nuevo = {};
+    // Manifiesto nuevo: arranca del anterior para no perder lo que quedó fuera
+    // de esta corrida (con --solo, `locales` es apenas un subconjunto).
+    const nuevo = { ...(manifiesto || {}) };
     for (const a of locales) {
       const subido = pendientes.includes(a);
       const yaEstaba = manifiesto && manifiesto[a.rel] === a.hash;

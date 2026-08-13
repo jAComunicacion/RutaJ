@@ -183,6 +183,14 @@ body.pagina-historia,
   color: var(--hst-dato);
 }
 
+/* La fecha va en su propio renglón y sin guión separador (Julio, 13/08/2026).
+   El color se pone acá y no solo en <time> porque en los rangos el nexo queda
+   afuera de la etiqueta: "1977 a 1979" tiene que leerse de un color solo. */
+.hst-tit-fecha {
+  display: block;
+  color: var(--hst-dato);
+}
+
 .hst-tit-grande {
   font-size: clamp(1.7rem, 3.4vw, 2.6rem);
   margin-bottom: 34px;

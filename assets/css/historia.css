@@ -625,6 +625,22 @@ body.pagina-historia,
               transform 900ms var(--hst-salida);
 }
 
+/* Fotografía que se disuelve en la página en lugar de recortarse contra ella.
+   Es el mismo recurso que Julio usa en sus piezas: la imagen no termina, se
+   desvanece. Por eso van fuera el borde redondeado y la sombra, que son
+   justamente lo contrario — un corte duro contra el fondo. */
+.hst-media-disuelta img {
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, rgba(0, 0, 0, .82) 62%, transparent 92%);
+          mask-image: radial-gradient(ellipse at 50% 50%, #000 40%, rgba(0, 0, 0, .82) 62%, transparent 92%);
+}
+
+/* Sin marco, el epígrafe queda flotando: se lo acerca a la imagen. */
+.hst-media-disuelta figcaption {
+  margin-top: 0;
+}
+
 .hst-media figcaption {
   margin-top: 12px;
   font-size: 12px;

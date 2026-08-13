@@ -1,0 +1,1263 @@
+/*--------------------------------------------------------------
+# RUTA J — historia.css
+# Hoja propia de historia.html. NO se carga en ninguna otra página.
+# Concepto rector: "la página se enciende" (penumbra -> luz en el hito 07).
+# Todo el archivo está namespaceado con .pagina-historia / .hst- para no
+# heredar ni pisar el CSS consolidado del sitio.
+# Modernización Web 2026 — jArismendi®
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# 1. TOKENS DE ESCENA — valores del TRAMO EN PENUMBRA
+# Los tonos de noche son oscurecimientos del azul institucional
+# #134989: mismo matiz, menor luminosidad. No hay color nuevo.
+--------------------------------------------------------------*/
+body.pagina-historia {
+  --hst-noche: #0a1f38;
+  --hst-noche2: #0f2c4d;
+  --hst-calido: #f4f1ea;
+  --hst-verde: #008374;
+
+  --hst-bg: var(--hst-noche);
+  --hst-tx: var(--hst-calido);
+  --hst-tx-soft: #a8b8ca;
+  --hst-cable: #3d5674;
+  --hst-poste: #54708f;
+  --hst-anio-stroke: rgba(244, 241, 234, .38);
+  --hst-caja-bg: rgba(15, 44, 77, .72);
+  --hst-caja-bd: var(--azulclaro);
+  --hst-dato: var(--azulclaro);
+  --hst-banda: var(--hst-noche2);
+  --hst-sombra: 0 18px 50px rgba(0, 0, 0, .45);
+  --hst-foto: grayscale(1) brightness(.62) sepia(.35) hue-rotate(178deg) saturate(1.6);
+
+  --hst-ease: cubic-bezier(.4, 0, .2, 1);
+  --hst-salida: cubic-bezier(.2, .7, .3, 1);
+}
+
+/*--------------------------------------------------------------
+# 2. TOKENS DEL TRAMO EN LUZ — los conmuta historia.js en el hito 07
+--------------------------------------------------------------*/
+body.pagina-historia.hst-on {
+  --hst-bg: #ffffff;
+  --hst-tx: var(--grisoscuro);
+  --hst-tx-soft: #5d6b7a;
+  --hst-cable: var(--azul);
+  --hst-poste: var(--azul);
+  --hst-anio-stroke: rgba(19, 73, 137, .85);
+  --hst-caja-bg: rgba(255, 255, 255, .92);
+  --hst-caja-bd: var(--azul);
+  --hst-dato: var(--hst-verde);
+  --hst-banda: var(--grismedio);
+  --hst-sombra: 0 18px 50px rgba(19, 73, 137, .18);
+  --hst-foto: none;
+}
+
+/*--------------------------------------------------------------
+# 3. BASE DE LA PÁGINA
+--------------------------------------------------------------*/
+body.pagina-historia {
+  background-color: var(--hst-bg);
+  color: var(--hst-tx);
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* Una sola declaración para todo lo que cambia de color al encenderse.
+   Evita repetir la misma transition en veinte reglas. */
+body.pagina-historia,
+.hst-tit,
+.hst-tit time,
+.hst-caja,
+.hst-dato,
+.hst-dato strong,
+.hst-media figcaption,
+.hst-motivos,
+.hst-lista li,
+.hst-lista li::before,
+.hst-lista li i,
+.hst-texto-suelto,
+.hst-cita,
+.hst-hoy,
+.hst-cifras li,
+.hst-cifra,
+.hst-cifra-lbl,
+.hst-colonias > p,
+.hst-colonias-lista li,
+.hst-cta-final,
+.hst-cta-txt {
+  transition: color 1200ms var(--hst-ease),
+              background-color 1200ms var(--hst-ease),
+              border-color 1200ms var(--hst-ease);
+}
+
+/* el <h1> del logo se degradó a <span>: le devolvemos su aspecto */
+.pagina-historia .header .logo .logo-txt {
+  font-size: 30px;
+  margin: 0;
+  font-weight: 600;
+  /* el <h1> original heredaba el 1.2 de Bootstrap; un <span> tomaría el 1.65
+     del cuerpo y el logo quedaría 27 px más alto que en el resto del sitio */
+  line-height: 1.2;
+  letter-spacing: .8px;
+  color: var(--blanco);
+  font-family: var(--font-primary);
+}
+
+.hst-wrap {
+  width: min(1180px, 92vw);
+  margin: 0 auto;
+}
+
+/* entrada al scroll: afinamos la convención data-aos del sitio,
+   sólo dentro de esta página */
+.pagina-historia [data-aos] {
+  transform: translateY(34px);
+  transition: opacity 900ms var(--hst-salida), transform 900ms var(--hst-salida);
+}
+
+.pagina-historia [data-aos].aos-animate {
+  transform: none;
+}
+
+/*--------------------------------------------------------------
+# 4. TIPOGRAFÍA Y COMPONENTES COMPARTIDOS
+--------------------------------------------------------------*/
+.hst-kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 22px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--azulclaro);
+}
+
+.hst-kicker::before {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 2px;
+  background: var(--azulclaro);
+}
+
+/* cartucho de rótulo: píldora azul con punto blanco (infog04B) */
+.hst-rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 8px 18px 8px 14px;
+  border-radius: 8px;
+  background: var(--azul);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.hst-rotulo::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.hst-tit {
+  margin: 0 0 18px;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--hst-tx);
+}
+
+.hst-tit time {
+  color: var(--hst-dato);
+}
+
+.hst-tit-grande {
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  margin-bottom: 34px;
+}
+
+/* año grande en contorno */
+.hst-anio {
+  margin: 0 0 4px;
+  font-size: clamp(3.2rem, 8vw, 6.4rem);
+  font-weight: 800;
+  line-height: .9;
+  /* tracking POSITIVO: en contorno los dígitos se cruzan y "1971" se vuelve
+     una maraña. El prototipo traía -.03em, que a 100 px es ilegible. */
+  letter-spacing: .12em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--hst-anio-stroke);
+  transition: -webkit-text-stroke-color 1200ms var(--hst-ease);
+  user-select: none;
+}
+
+.hst-caja {
+  padding: 24px 28px;
+  border-radius: 4px;
+  border-left: 4px solid var(--hst-caja-bd);
+  background: var(--hst-caja-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--hst-tx);
+}
+
+.hst-caja p {
+  margin: 0 0 14px;
+}
+
+.hst-caja p:last-child {
+  margin: 0;
+}
+
+.hst-enlace {
+  margin-top: 18px !important;
+}
+
+.hst-enlace a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: var(--hst-dato);
+  border-bottom: 1px solid transparent;
+  transition: color 300ms ease, border-color 300ms ease, gap 300ms ease;
+}
+
+.hst-enlace a:hover,
+.hst-enlace a:focus-visible {
+  color: var(--hst-dato);
+  border-bottom-color: currentColor;
+  gap: 14px;
+}
+
+/* dato destacado */
+.hst-dato {
+  margin: 22px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--hst-tx-soft);
+}
+
+.hst-dato strong {
+  display: block;
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--hst-dato);
+}
+
+/*--------------------------------------------------------------
+# 5. HERO — arranca en penumbra
+--------------------------------------------------------------*/
+.hst-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
+  padding: 120px 0 90px;
+  overflow: hidden;
+}
+
+.hst-hero-foto {
+  position: absolute;
+  inset: 0;
+  background: url('../img/historia/hero-coop.webp') center 62% / cover no-repeat;
+  filter: grayscale(1) brightness(.42) sepia(.4) hue-rotate(178deg) saturate(1.7);
+  transform: scale(1.06);
+  transition: filter 1400ms ease;
+}
+
+.hst-on .hst-hero-foto {
+  filter: grayscale(.15) brightness(.9);
+}
+
+.hst-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+              rgba(10, 31, 56, .55) 0%,
+              rgba(10, 31, 56, .82) 55%,
+              var(--hst-bg) 100%);
+  transition: background 1200ms ease;
+}
+
+.hst-on .hst-hero::after {
+  background: linear-gradient(180deg,
+              rgba(10, 31, 56, .35) 0%,
+              rgba(10, 31, 56, .6) 55%,
+              var(--hst-bg) 100%);
+}
+
+.hst-hero-txt {
+  position: relative;
+  z-index: 2;
+}
+
+/* el título de la página: peso 500. La jerarquía la da el tamaño, no el peso. */
+.pagina-historia h1 {
+  max-width: 18ch;
+  margin: 0 0 26px;
+  font-size: clamp(2.4rem, 6.2vw, 4.6rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.015em;
+  color: #fff;
+}
+
+.hst-bajada {
+  max-width: 56ch;
+  margin: 0 0 34px;
+  font-size: clamp(1.05rem, 1.9vw, 1.4rem);
+  font-weight: 400;
+  color: #dfe7ef;
+}
+
+.hst-hero-meta {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #8fa6bd;
+}
+
+.hst-scroll-hint {
+  position: absolute;
+  bottom: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: #8fa6bd;
+}
+
+.hst-scroll-hint span {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(180deg, #8fa6bd, transparent);
+  animation: hst-caer 2.2s ease-in-out infinite;
+}
+
+@keyframes hst-caer {
+  0%, 100% { opacity: .3; transform: scaleY(.6); transform-origin: top; }
+  50%      { opacity: 1;  transform: scaleY(1); }
+}
+
+/*--------------------------------------------------------------
+# 6. LÍNEA DE TIEMPO Y EL TENDIDO ELÉCTRICO
+--------------------------------------------------------------*/
+.hst-timeline {
+  position: relative;
+  padding: 40px 0 0;
+}
+
+/* El eje se alinea con la columna que el grid del hito le reserva.
+   historia.js lee el ancho y --hst-poste-esc para dibujar a escala. */
+.hst-eje {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 45px);
+  width: 90px;
+  z-index: 1;
+  pointer-events: none;
+  --hst-poste-esc: 1;
+}
+
+#hst-tendido {
+  display: block;
+  overflow: visible;
+}
+
+/* conductor: cuelga en catenaria entre poste y poste */
+#hst-tendido .hst-cable-path {
+  fill: none;
+  stroke: var(--hst-cable);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  transition: stroke 1200ms ease, filter 1200ms ease;
+}
+
+.hst-on #hst-tendido .hst-cable-path {
+  filter: drop-shadow(0 0 6px rgba(19, 73, 137, .45));
+}
+
+/* poste: cruceta + mástil, trazo fino */
+#hst-tendido .hst-poste {
+  fill: none;
+  stroke: var(--hst-poste);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0;
+  transform: scale(.6);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: opacity 600ms ease,
+              transform 600ms cubic-bezier(.2, .9, .3, 1.3),
+              stroke 1200ms ease;
+}
+
+#hst-tendido .hst-poste.on {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#hst-tendido .hst-nodo {
+  fill: var(--hst-noche);
+  stroke: var(--hst-poste);
+  stroke-width: 3;
+  opacity: 0;
+  transition: opacity 600ms ease 120ms, fill 1200ms ease, stroke 1200ms ease;
+}
+
+#hst-tendido .hst-nodo.on {
+  opacity: 1;
+}
+
+.hst-on #hst-tendido .hst-nodo {
+  fill: #fff;
+  stroke: var(--azul);
+}
+
+#hst-tendido .hst-aislador {
+  fill: var(--hst-poste);
+  opacity: 0;
+  transition: opacity 600ms ease 200ms, fill 1200ms ease;
+}
+
+#hst-tendido .hst-aislador.on {
+  opacity: 1;
+}
+
+.hst-on #hst-tendido .hst-aislador {
+  fill: var(--azulclaro);
+}
+
+/*--------------------------------------------------------------
+# 7. EL HITO
+--------------------------------------------------------------*/
+.hst-hito {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+  align-items: center;
+  padding: clamp(70px, 11vh, 130px) 0;
+}
+
+/* grid-row explícito en ambos: sin él, el hito invertido manda la foto a la
+   columna 3 y el auto-placement ya no puede volver a la columna 1, así que
+   el texto cae a una segunda fila y queda escalonado. */
+.hst-media {
+  grid-column: 1;
+  grid-row: 1;
+  margin: 0;
+  padding-right: 56px;
+}
+
+.hst-cuerpo {
+  grid-column: 3;
+  grid-row: 1;
+  padding-left: 56px;
+}
+
+.hst-invertido .hst-media {
+  grid-column: 3;
+  padding-right: 0;
+  padding-left: 56px;
+}
+
+.hst-invertido .hst-cuerpo {
+  grid-column: 1;
+  padding-left: 0;
+  padding-right: 56px;
+  text-align: right;
+}
+
+/* el año, el rótulo, el h3 y el dato sí se espejan; el cuerpo de texto no:
+   cinco líneas con el borde izquierdo dentado cuestan de leer */
+.hst-invertido .hst-caja {
+  border-left: 0;
+  border-right: 4px solid var(--hst-caja-bd);
+  text-align: left;
+}
+
+.hst-invertido .hst-enlace a {
+  flex-direction: row;
+}
+
+/* hitos sin fotografía: la caja respira un poco más */
+.hst-hito-destacado .hst-caja {
+  padding: 30px 34px;
+}
+
+.hst-hito-destacado .hst-cuerpo {
+  max-width: 62ch;
+}
+
+/* hito 06: la tensión antes del encendido */
+.hst-tension .hst-anio {
+  -webkit-text-stroke-width: 2.5px;
+}
+
+/* hito 12: la generación propia. Rima con el halo del 1973, pero a media voz:
+   el clímax de la página sigue siendo el encendido. */
+.hst-on .hst-hito-solar .hst-anio {
+  color: var(--azul);
+  -webkit-text-stroke-color: transparent;
+  text-shadow: 0 0 34px rgba(255, 214, 140, .55);
+}
+
+.hst-on .hst-hito-solar .hst-dato strong {
+  color: var(--hst-verde);
+}
+
+/* fotografía */
+.hst-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: var(--hst-sombra);
+  filter: var(--hst-foto);
+  transition: filter 1200ms ease, box-shadow 1200ms ease,
+              transform 900ms var(--hst-salida);
+}
+
+.hst-media figcaption {
+  margin-top: 12px;
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: .02em;
+  color: var(--hst-tx-soft);
+}
+
+.hst-invertido .hst-media figcaption {
+  text-align: right;
+}
+
+/*--------------------------------------------------------------
+# 8. HITO 02 — bloque de contexto (sin año, sin nodo en el eje)
+--------------------------------------------------------------*/
+.hst-motivos {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 clamp(40px, 7vh, 80px);
+  padding: clamp(34px, 5vw, 52px);
+  border-radius: 6px;
+  border-left: 4px solid var(--hst-caja-bd);
+  background: var(--hst-caja-bg);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.hst-lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 26px 44px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: hst-motivo;
+}
+
+.hst-lista li {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  align-items: start;
+  gap: 16px;
+  color: var(--hst-tx);
+}
+
+.hst-lista li::before {
+  counter-increment: hst-motivo;
+  content: counter(hst-motivo, decimal-leading-zero);
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 2px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: var(--hst-dato);
+}
+
+.hst-lista li span {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.hst-lista li i {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--hst-caja-bd);
+  font-size: 20px;
+  color: var(--hst-dato);
+}
+
+/*--------------------------------------------------------------
+# 9. LA FOTO QUE ABRE EL VIDEO
+--------------------------------------------------------------*/
+.hst-disparador {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+  box-shadow: var(--hst-sombra);
+  transition: box-shadow 500ms ease, transform 500ms var(--hst-salida);
+}
+
+.hst-disparador img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.hst-disparador:hover,
+.hst-disparador:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, .55);
+}
+
+.hst-disparador:focus-visible {
+  outline: 3px solid var(--azulclaro);
+  outline-offset: 4px;
+}
+
+.hst-disparador:hover img {
+  transform: scale(1.035);
+}
+
+.hst-play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.hst-play i {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: rgba(19, 73, 137, .88);
+  box-shadow: 0 0 0 0 rgba(167, 205, 252, .55);
+  animation: hst-pulso 2.8s ease-out infinite;
+}
+
+.hst-play i::after {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-left: 20px solid #fff;
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+}
+
+@keyframes hst-pulso {
+  0%   { box-shadow: 0 0 0 0 rgba(167, 205, 252, .5); }
+  70%  { box-shadow: 0 0 0 26px rgba(167, 205, 252, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(167, 205, 252, 0); }
+}
+
+.hst-play-txt {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 38px 20px 16px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .78), transparent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+/*--------------------------------------------------------------
+# 10. HITO 07 — EL ENCENDIDO
+--------------------------------------------------------------*/
+.hst-encendido-hito {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  min-height: 100svh;
+  padding: 90px 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hst-encendido-hito .hst-cuerpo {
+  grid-column: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.hst-encendido-hito .hst-rotulo {
+  margin-inline: auto;
+}
+
+/* Sin fotografía de fondo. La spec pide silencio visual acá: el encendido lo
+   cargan el giro de la página, el halo del año y el destello. */
+.hst-encendido-hito .hst-anio {
+  font-size: clamp(4.5rem, 14vw, 11rem);
+  -webkit-text-stroke-width: 3px;
+}
+
+.hst-on .hst-encendido-hito .hst-anio {
+  color: var(--azul);
+  -webkit-text-stroke-color: transparent;
+  text-shadow: 0 0 46px rgba(167, 205, 252, .85),
+               0 0 100px rgba(255, 214, 140, .35);
+}
+
+.hst-encendido-hito .hst-tit {
+  max-width: 20ch;
+  margin-inline: auto;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+}
+
+.hst-texto-suelto {
+  max-width: 60ch;
+  margin: 0 auto;
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  color: var(--hst-tx);
+}
+
+/* la cursiva bold se reserva para epígrafes y esta cita */
+.hst-cita {
+  display: block;
+  max-width: 22ch;
+  margin: 34px auto 0;
+  font-size: clamp(1.3rem, 3vw, 2.1rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--hst-dato);
+}
+
+/* el destello del encendido */
+.hst-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 55%,
+              rgba(255, 244, 214, .92), rgba(255, 244, 214, 0) 62%);
+}
+
+.hst-flash.go {
+  animation: hst-destello 1100ms ease-out;
+}
+
+@keyframes hst-destello {
+  0%   { opacity: 0; }
+  18%  { opacity: .85; }
+  100% { opacity: 0; }
+}
+
+/*--------------------------------------------------------------
+# 11. CIERRE — la red hoy
+--------------------------------------------------------------*/
+.hst-hoy {
+  padding: clamp(70px, 11vh, 130px) 0;
+  background: var(--hst-banda);
+}
+
+.hst-cifras {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 34px;
+  margin: 0 0 clamp(44px, 7vh, 80px);
+  padding: 0;
+  list-style: none;
+}
+
+.hst-cifras li {
+  padding-left: 24px;
+  border-left: 4px solid var(--hst-caja-bd);
+}
+
+.hst-cifra {
+  display: block;
+  font-size: clamp(2.6rem, 5.5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--hst-dato);
+}
+
+.hst-cifra-txt {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.hst-cifra-lbl {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--hst-tx-soft);
+}
+
+.hst-colonias {
+  margin-bottom: clamp(40px, 6vh, 64px);
+}
+
+.hst-colonias > p {
+  margin-bottom: 18px;
+  color: var(--hst-tx-soft);
+}
+
+.hst-colonias-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hst-colonias-lista li {
+  padding: 7px 16px;
+  border: 1px solid var(--hst-caja-bd);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--hst-tx);
+}
+
+.hst-cierre {
+  max-width: 72ch;
+}
+
+.hst-cierre p {
+  margin-bottom: 16px;
+}
+
+.hst-cierre p:last-child {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# 12. CTA FINAL
+--------------------------------------------------------------*/
+.hst-cta-final {
+  padding: clamp(60px, 9vh, 100px) 0 clamp(70px, 11vh, 120px);
+  text-align: center;
+  background: var(--hst-bg);
+}
+
+.hst-cta-txt {
+  max-width: 44ch;
+  margin: 0 auto 28px;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  color: var(--hst-tx-soft);
+}
+
+.hst-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 34px;
+  border-radius: 6px;
+  background: var(--azul);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: background-color 300ms ease, gap 300ms ease, transform 300ms ease;
+}
+
+.hst-btn:hover,
+.hst-btn:focus-visible {
+  background: var(--peach);
+  color: #fff;
+  gap: 18px;
+  transform: translateY(-2px);
+}
+
+.hst-btn:focus-visible {
+  outline: 3px solid var(--azulclaro);
+  outline-offset: 4px;
+}
+
+/*--------------------------------------------------------------
+# 13. MODAL DE VIDEO
+--------------------------------------------------------------*/
+#hst-visor {
+  width: min(1100px, 92vw);
+  max-width: none;
+  max-height: 92svh;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+#hst-visor::backdrop {
+  background: rgba(6, 18, 32, .72);
+  -webkit-backdrop-filter: blur(14px) saturate(.7);
+  backdrop-filter: blur(14px) saturate(.7);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+#hst-visor[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  #hst-visor[open]::backdrop { opacity: 0; }
+}
+
+.hst-visor-caja {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .7);
+}
+
+.hst-visor-caja video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 78svh;
+  background: #000;
+}
+
+.hst-visor-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 22px;
+  background: var(--azul);
+  color: #fff;
+}
+
+.hst-visor-pie p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+.hst-visor-pie small {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .02em;
+  opacity: .75;
+}
+
+.hst-cerrar {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .5);
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 260ms ease, border-color 260ms ease, transform 260ms ease;
+}
+
+.hst-cerrar:hover {
+  background: rgba(255, 255, 255, .16);
+  border-color: #fff;
+  transform: rotate(90deg);
+}
+
+.hst-cerrar:focus-visible {
+  outline: 3px solid var(--azulclaro);
+  outline-offset: 3px;
+}
+
+/*--------------------------------------------------------------
+# 14. RESPONSIVE
+--------------------------------------------------------------*/
+
+/* 768 - 991 px: tendido a la izquierda, hitos en una columna a su derecha */
+@media (max-width: 991px) {
+  /* 4vw = borde izquierdo de .hst-wrap, que acá siempre mide 92vw */
+  .hst-eje {
+    left: 4vw;
+    width: 74px;
+    --hst-poste-esc: .86;
+  }
+
+  .hst-hito {
+    grid-template-columns: 74px 1fr;
+    padding: 60px 0;
+  }
+
+  .hst-media,
+  .hst-invertido .hst-media {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0 0 26px;
+  }
+
+  .hst-cuerpo,
+  .hst-invertido .hst-cuerpo {
+    grid-column: 2;
+    grid-row: 2;
+    padding: 0;
+    text-align: left;
+  }
+
+  .hst-invertido .hst-caja {
+    border-right: 0;
+    border-left: 4px solid var(--hst-caja-bd);
+  }
+
+  .hst-invertido .hst-media figcaption {
+    text-align: left;
+  }
+
+  .hst-motivos {
+    margin-left: 74px;
+  }
+
+  .hst-encendido-hito {
+    grid-template-columns: 1fr;
+    padding: 80px 0;
+  }
+
+  /* el texto tiene que despejar la columna del eje: si no, el conductor
+     le pasa por encima al párrafo */
+  .hst-encendido-hito .hst-cuerpo {
+    grid-column: 1;
+    grid-row: 1;
+    padding: 0 16px 0 90px;
+  }
+
+  .hst-cifras {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .hst-play i {
+    width: 58px;
+    height: 58px;
+  }
+}
+
+/* < 768 px: tendido a 24 px del borde, postes reducidos, año a 44 px */
+@media (max-width: 767px) {
+  .hst-eje {
+    left: 4vw;
+    width: 46px;
+    --hst-poste-esc: .62;
+  }
+
+  .hst-hito {
+    grid-template-columns: 46px 1fr;
+    padding: 48px 0;
+  }
+
+  .hst-motivos {
+    margin-left: 46px;
+    padding: 26px 22px;
+  }
+
+  .hst-lista {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .hst-anio {
+    font-size: 44px;
+  }
+
+  .hst-encendido-hito .hst-cuerpo {
+    padding: 0 12px 0 58px;
+  }
+
+  .hst-encendido-hito .hst-tit {
+    font-size: clamp(1.35rem, 6vw, 1.9rem);
+  }
+
+  .hst-encendido-hito .hst-anio {
+    font-size: clamp(3.4rem, 18vw, 5.5rem);
+  }
+
+  .hst-caja {
+    padding: 20px 22px;
+  }
+
+  .hst-hito-destacado .hst-caja {
+    padding: 20px 22px;
+  }
+
+  .hst-dato strong {
+    font-size: 2rem;
+  }
+
+  .hst-visor-pie {
+    padding: 12px 16px;
+  }
+}
+
+/* < 360 px: que el año en contorno no desborde */
+@media (max-width: 359px) {
+  .hst-anio {
+    font-size: 36px;
+    -webkit-text-stroke-width: 1.5px;
+  }
+
+  .hst-eje {
+    width: 38px;
+    --hst-poste-esc: .5;
+  }
+
+  .hst-hito {
+    grid-template-columns: 38px 1fr;
+  }
+
+  .hst-motivos {
+    margin-left: 38px;
+  }
+
+  .hst-colonias-lista li {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+
+/*--------------------------------------------------------------
+# 15. PREFERENCIAS DEL USUARIO
+--------------------------------------------------------------*/
+
+/* sin morph, sin loops, sin dibujado, sin transición de encendido.
+   El contenido queda completo y estático. */
+@media (prefers-reduced-motion: reduce) {
+  .pagina-historia *,
+  .pagina-historia *::before,
+  .pagina-historia *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .pagina-historia [data-aos] {
+    opacity: 1;
+    transform: none;
+  }
+
+  #hst-tendido .hst-poste,
+  #hst-tendido .hst-nodo,
+  #hst-tendido .hst-aislador {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hst-flash {
+    display: none;
+  }
+
+  .hst-hero-foto {
+    transform: none;
+  }
+}
+
+/* toda la página en luz plena: el tramo en penumbra se desactiva */
+@media (prefers-contrast: more) {
+  body.pagina-historia {
+    --hst-bg: #ffffff;
+    --hst-tx: #1a1a1a;
+    --hst-tx-soft: #3d4650;
+    --hst-cable: var(--azul);
+    --hst-poste: var(--azul);
+    --hst-anio-stroke: var(--azul);
+    --hst-caja-bg: #ffffff;
+    --hst-caja-bd: var(--azul);
+    --hst-dato: #00695c;
+    --hst-banda: var(--grismedio);
+    --hst-foto: none;
+  }
+
+  .hst-hero-foto {
+    filter: none;
+    opacity: .18;
+  }
+
+  .hst-hero::after,
+  .hst-on .hst-hero::after {
+    background: linear-gradient(180deg,
+                rgba(10, 31, 56, .78) 0%,
+                rgba(10, 31, 56, .88) 55%,
+                var(--hst-bg) 100%);
+  }
+
+  .hst-caja,
+  .hst-motivos {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: 1px solid var(--azul);
+    border-left-width: 4px;
+  }
+
+  .hst-flash {
+    display: none;
+  }
+}
+
+/* sin soporte de backdrop-filter: color sólido, la función no depende del efecto */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  #hst-visor::backdrop {
+    background: rgba(6, 18, 32, .94);
+  }
+
+  body.pagina-historia {
+    --hst-caja-bg: rgba(15, 44, 77, .95);
+  }
+
+  body.pagina-historia.hst-on {
+    --hst-caja-bg: rgba(255, 255, 255, .98);
+  }
+}

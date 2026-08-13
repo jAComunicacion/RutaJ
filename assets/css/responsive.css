@@ -1,0 +1,154 @@
+/*--------------------------------------------------------------
+# RUTA J — responsive.css
+# Media queries globales y mejoras mobile-first
+# Modernización Web 2026 — jArismendi®
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# AOS — Deshabilitar delay en móviles (evita freezes)
+--------------------------------------------------------------*/
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+/*--------------------------------------------------------------
+# TABLET (max-width: 768px)
+--------------------------------------------------------------*/
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 0;
+  }
+
+  .section-header {
+    padding-bottom: 40px;
+  }
+
+  .section-header h2 {
+    font-size: 26px;
+  }
+
+  .call-to-action .container {
+    padding: 60px 20px;
+  }
+
+  .contact .info-container {
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .contact .php-email-form {
+    border-radius: 0 0 10px 10px;
+  }
+
+  .breadcrumbs .page-header h2 {
+    font-size: 32px;
+  }
+}
+
+/*--------------------------------------------------------------
+# MÓVIL MEDIANO (max-width: 576px)
+--------------------------------------------------------------*/
+@media (max-width: 576px) {
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; }
+  h3 { font-size: 20px; }
+
+  .hero h2 {
+    font-size: 28px;
+  }
+
+  .hero .icon-box {
+    padding: 30px 20px;
+  }
+
+  .hero .icon-box .title {
+    font-size: 18px;
+  }
+
+  .services .service-item {
+    padding: 25px;
+  }
+
+  .breadcrumbs .page-header h2 {
+    font-size: 24px;
+  }
+
+  .footer {
+    padding: 30px 0;
+  }
+
+  .footer .footer-info .logo span {
+    font-size: 22px;
+  }
+}
+
+/*--------------------------------------------------------------
+# MÓVIL PEQUEÑO (max-width: 375px)
+--------------------------------------------------------------*/
+@media (max-width: 375px) {
+  .topbar {
+    font-size: 12px;
+  }
+
+  .hero .btn-get-started,
+  .hero .btn-watch-video {
+    font-size: 13px;
+    padding: 10px 20px;
+  }
+
+  .carousel-header .carousel-caption h1 {
+    font-size: 1.1rem;
+  }
+}
+
+/*--------------------------------------------------------------
+# PANTALLAS GRANDES (min-width: 1920px)
+--------------------------------------------------------------*/
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .hero h2 {
+    font-size: 60px;
+  }
+
+  .carousel-header {
+    height: 560px !important;
+  }
+
+  .carousel-header #carouselId,
+  .carousel-header #carouselId .carousel-inner,
+  .carousel-header #carouselId .carousel-inner .carousel-item,
+  .carousel-header #carouselId .carousel-inner .carousel-item img {
+    height: 560px !important;
+  }
+}
+
+/*--------------------------------------------------------------
+# ANIMACIONES ON-SCROLL (reemplaza AOS)
+--------------------------------------------------------------*/
+[data-aos] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+[data-aos="zoom-out"] {
+  transform: scale(1.05);
+}
+
+[data-aos="fade-up"] {
+  transform: translateY(30px);
+}
+
+[data-aos="fade-in"] {
+  transform: none;
+}
+
+[data-aos].aos-animate {
+  opacity: 1;
+  transform: none;
+}

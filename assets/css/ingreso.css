@@ -1,0 +1,215 @@
+/* Estilos generales */
+.ingreso-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ingreso-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.ingreso-content {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 350px;
+    margin: auto;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.ingreso-modal.show .ingreso-content {
+    transform: translateY(0);
+}
+
+.ingreso-close {
+    float: right;     
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #343a40;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 2px solid #343a40;
+}
+
+.ingreso-close:hover,
+.ingreso-close:focus {
+    background-color: #343a40;
+    color: #fff;
+    transform: rotate(90deg);
+}
+
+.ingreso-titulo {
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.ingreso-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingreso-form .form-group {
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ingreso-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #495057;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.ingreso-form input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.ingreso-form input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.ingreso-form input:focus + label,
+.ingreso-form input:not(:placeholder-shown) + label {
+    transform: translateY(-25px);
+    font-size: 12px;
+    color: #007bff;
+}
+
+.ingreso-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 10px;
+}
+
+.ingreso-form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.ingreso-form button:active {
+    transform: translateY(0);
+}
+
+/* Estilos responsive */
+@media screen and (max-width: 480px) {
+    .ingreso-content {
+        padding: 20px;
+    }
+
+    .ingreso-titulo {
+        font-size: 20px;
+    }
+
+    .ingreso-form input {
+        font-size: 14px;
+    }
+
+    .ingreso-form button {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .ingreso-content {
+        max-width: 400px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .ingreso-content {
+        max-width: 450px;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .ingreso-content {
+        max-width: 500px;
+    }
+
+    .ingreso-titulo {
+        font-size: 28px;
+    }
+
+    .ingreso-form input {
+        font-size: 18px;
+    }
+
+    .ingreso-form button {
+        font-size: 18px;
+        padding: 14px 24px;
+    }
+}
+
+/* Estilos para dispositivos con hover */
+@media (hover: hover) {
+    .ingreso-close:hover {
+        color: #343a40;
+        transform: rotate(90deg);
+    }
+
+    .ingreso-form button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+}
+
+/* Estilos para dispositivos sin hover (táctiles) */
+@media (hover: none) {
+    .ingreso-close:active {
+        color: #343a40;
+        transform: rotate(90deg);
+    }
+
+    .ingreso-form button:active {
+        background-color: #0056b3;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,34 @@
+# ─── Dependencias ────────────────────────────────────────────────────────────
+node_modules/
+
+# ─── Entorno del editor y herramientas ───────────────────────────────────────
+.vs/
+.vscode/
+.gstack/
+.ftpquota
+
+# ─── Carpetas de trabajo del pipeline ────────────────────────────────────────
+# Decisión de Julio (13/08/2026): el repo es el sitio publicable, no el proceso.
+# Si algún día querés versionar la spec y el plan, borrá estas cuatro líneas.
+1.construccion/
+2.especificacion/
+3.clarificacion/
+4.plan/
+
+# ─── Videos institucionales pesados ──────────────────────────────────────────
+# 4 archivos de 26–38 MB (124 MB en total) que ya están en el servidor y no
+# cambian nunca. Mantenerlos afuera baja el repo de ~185 MB a ~60 MB.
+# Si alguna vez se reemplaza uno, se sube a mano por FTP.
+assets/videos/*.mp4
+
+# ─── Credenciales ────────────────────────────────────────────────────────────
+# NUNCA versionar. Acá viven usuario y contraseña del FTP.
+deploy/.env
+.env
+
+# ─── Estado local del deploy ─────────────────────────────────────────────────
+deploy/.deploy-cache.json
+
+# ─── Fuentes sin usar ────────────────────────────────────────────────────────
+# Originales de los que ya existe la versión optimizada publicada.
+assets/img/historia/h09-frente-propio.jpeg

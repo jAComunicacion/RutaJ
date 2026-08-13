@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Unsuscribe | App Ruta J </title>
+
+    <meta content="Dar de baja la app o cuenta en la aplicacion movil de Cooperativa Ruta J." name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons o loguito chico en solapas-->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- fuentes cargadas desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <!-- CSS Librerías -->
+    <link href="assets/rutaj/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/rutaj/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <!-- CSS del sitio (consolidado) -->
+    <link href="assets/css/main.min.css" rel="stylesheet">
+    <link href="assets/css/components.min.css" rel="stylesheet">
+    <link href="assets/css/responsive.min.css" rel="stylesheet">
+
+    <!-- Google Tag Manager (noscript) -->
+<noscript> </noscript>
+
+
+<!--FORMULARIO QUE SI ANDA-->
+<body id="unsuscribe">
+    <div class="container">
+
+        <form action="https://formsubmit.co/julio38arg@gmail.com" method="POST">
+            <h2>Unsuscribe - Dar la Baja</h2>
+            <p class="pl-4 pt-2">
+                Completando este formulario, podes cancelar la suscripcion a nuestra App o a una
+                de tus cuentas en nuestra App.
+
+                <h4>
+                    Datos para cancelar la App:
+                </h4>
+            </p>
+
+            <div class="input-group">
+                <label for="name">Usuario</label>
+                <input type="text" name="name" id="name" placeholder="Como figura en la App">
+                <label for="phone">Celular</label>
+                <input type="tel" name="phone" id="phone" placeholder="El que usas con la App">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Que usas en la App">
+
+                <button type="submit" class="btn" id="tombo2"> DAR DE BAJA LA APP </button>
+
+                <div class="form-group pb-2 w-100">
+                    <div class="form-field interests">
+                        <div class="input-group">
+                            <p class="pl-4 pt-2">
+                                <h4>
+                                    Si solamente queres cancelar una de las cuentas que tenes en la App
+                                </h4>
+                            </p>
+                        </div>
+                        <input class="checkbox cb" checked="" id="events" name="events"
+                               type="checkbox" value="True">
+                        Cancelar Una Cuenta
+                    </div>
+                    <div class="form-field interests"> </div>
+                </div>
+
+
+                <label for="message">Cuenta</label>
+                <textarea name="message" id="message" cols="30" rows="5" placeholder="email que das de baja"></textarea>
+
+                <button type="submit" class="btn" id="tombo2"> DAR DE BAJA LA CUENTA </button>
+
+                <input type="hidden" name="_next" value=" https://rutaj.com.ar/">
+                <input type="hidden" name="_captcha" value="false">
+            </div>
+
+            <p>
+                <h6>
+                    No pudimos solucionar lo requerido? <br /> Envianos un
+                    <a href="mailto:gerencia@rutaj.com.ar" style="color:cornflowerblue"> EMAIL <i class="bi bi-envelope"></i></a>
+                </h6>
+            </p>
+
+            <ul class="list-inline">
+
+                <li class="leaf list-inline-item">
+                    <a href="https://rutaj.com.ar/politica-de-privacidad.html"                     
+                    target="_blank" rel="noopener noreferrer">Politica de privacidad</a>
+                </li>
+                <li class="last leaf list-inline-item" style="text-align:right">
+                    <a href="http://www.rutaj.com.ar" 
+                    target=" _blank" style="color:cornflowerblue">Ruta J.com.ar</a>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"> </script>
+    <script src="https://smtpjs.com/v3/smtp.js"> </script>
+    <script src="assets/js/unsuscribe.js"> </script>
+
+</body>
+</html>

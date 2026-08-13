@@ -1,0 +1,15 @@
+{
+  "name": "rutaj-sitio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio de la Cooperativa Ruta J Ltda. — jArismendi®",
+  "scripts": {
+    "deploy": "node deploy/deploy.js",
+    "deploy:go": "node deploy/deploy.js --go",
+    "deploy:verboso": "node deploy/deploy.js --verboso"
+  },
+  "devDependencies": {
+    "basic-ftp": "^5.3.1",
+    "sharp": "^0.34.5"
+  }
+}

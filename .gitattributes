@@ -1,0 +1,19 @@
+# Normalización de finales de línea.
+# Sin esto, Git reescribe LF -> CRLF al hacer checkout en Windows y el sitio
+# entero aparece como "modificado" en cada commit sin haberlo tocado.
+* text=auto eol=lf
+
+# Binarios: que Git no intente tocarlos ni mostrarlos como texto.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.mp4   binary
+*.mp3   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.eot   binary

@@ -1,0 +1,122 @@
+
+*{
+	margin: 0;
+	padding: 0;
+
+h4 {
+	text-decoration: none;
+
+}
+.modal-content {
+	width: 100vh;
+	height: 500px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	
+}
+.modal-content,
+.modal-title,
+.modal-body,
+.modal-talon {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 5px;
+}
+.btn-close {
+	background-color: rgb(221, 107, 26);
+	right: 15px;
+	bottom: -15px;
+	z-index: 100;
+	width: 35px;
+	height: 35px;
+	transition: all 0.2s;
+}
+.btn-close:hover {
+	background-color: peachpuff;
+}
+.modal-title {
+	text-align: right;
+	line-height: 1.1em;
+	font-family: var(--font-primary);
+	color: var(--color-secondary);
+}
+
+.modal-header {
+	background-color:rgb(255, 0, 0, 0.3);
+}
+
+.modal-body {
+	display: inline-block;
+	align-items: center;
+	color: var(--color-secondary);
+	padding: 20px 20px;
+	background: rgba(255, 0, 0, 0.5);
+}
+
+.modal-talon{
+	margin-top: 20px;
+	text-align:right;
+	text-decoration: none;
+}
+
+.subsi {
+	color: yellow;
+	text-decoration: none;
+}
+.subsi:hover{
+	color: lightblue;
+	text-decoration: none;
+}
+
+
+@media screen and (min-width: 1450px) {
+	.modal-content {
+		width: 80vh;
+		position: relative;
+	}
+	.btn-close{
+		margin-right: 30px;
+	}
+	.modal-body {
+		margin-right: 50px;
+		
+	}
+}
+@media screen and (max-width: 560px) {
+
+	.modal-content {
+		width: 80vh;
+		position: absolute;
+		transform: scale(0.9);
+	}
+	.btn-close {
+		margin-right: 15px;		
+	}
+}
+@media screen and (max-width: 400px) {
+	#fufu{
+		max-width: 380px;
+		padding:5px 5px 5px 5px;
+	}
+	#Layer_1{
+		margin-right:15px;
+	}
+	.modal-content {
+		width: 380px;
+		position: absolute;
+		overflow: auto;
+		transform: scale(0.8);
+	}
+	
+	.btn-close {
+		padding-right: 20px;
+		margin-right: 20px;
+		pointer-events: auto;
+	}
+	.btn-close:hover{
+		background-color: white;
+	}
+	.modal-body {
+		overflow: auto;
+	}
+}

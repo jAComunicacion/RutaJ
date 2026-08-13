@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+
+ .btn-wsp {
+    position:fixed;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    bottom: 100px;
+    right: 45px;
+    background: #0df053;
+    color: #fff;   
+    border-radius: 50px;
+    font-size: 30px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+}
+.btn-wsp:hover {
+        text-decoration: none;
+        background: #fff;
+        color: #0df053;
+        
+ }
+
+    .pulse {
+        animation: pulse-animation 2s infinite
+    }
+@keyframes pulse-animation {
+    0% {
+        box-shadow: 0 0 0 0px #08100bfa;
+        rgba (0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 0 7px;
+        rgba (0, 0, 0, 0.5);
+    }
+}
+
+

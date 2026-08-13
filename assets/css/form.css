@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+body {
+    background-color: var(--color-primary);
+}
+.unsuscribe,.container{
+    font-family: Popins, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+form {
+    padding: 30px 40px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+    border-radius: 20px;
+    width: 540px;
+    background-color: var(--color-secondary);
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+h2 {
+    color: #283629;
+    font-size: 35px;
+}
+
+input, textarea {
+    padding: 17px 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #e5f7fc;
+    border: 2px solid #F8FAF1;
+    color: #283629;
+    outline: none;
+}
+
+input::placeholder, textarea::placeholder {
+    color:#b5cab6; 
+}
+
+.form-txt {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+.form-txt:hover {
+    color: #76b28e;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#tombo {
+    background-color: var(--color-third);
+}
+
+    #tombo:hover {
+        background-color: var(--color-primary);
+    }
+
+#tombo2 {
+    height: 50px;
+    width: 250px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 25px;
+    background-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(0, 0, 0, .4);
+    cursor: pointer;
+}
+
+    #tombo2:hover {
+        background-color: var(--color-third);
+    }
+
+
+@media(max-width: 990px){
+    body {
+        padding: 50px 30px;
+        width: 100%;
+    }
+    input{
+        padding: 15px;
+    }
+
+}
+
+
+
+
+
+
+
+

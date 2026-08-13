@@ -30,6 +30,9 @@ body.pagina-historia {
   --hst-banda: var(--hst-noche2);
   --hst-sombra: 0 18px 50px rgba(0, 0, 0, .45);
   --hst-foto: grayscale(1) brightness(.62) sepia(.35) hue-rotate(178deg) saturate(1.6);
+  /* Fondos de mapa. En penumbra el mapa es claro sobre azul oscuro: apenas una
+     neblina. Pasado ese umbral empieza a competir con el texto. */
+  --hst-mapa-op: .09;
 
   --hst-ease: cubic-bezier(.4, 0, .2, 1);
   --hst-salida: cubic-bezier(.2, .7, .3, 1);
@@ -51,6 +54,8 @@ body.pagina-historia.hst-on {
   --hst-banda: var(--grismedio);
   --hst-sombra: 0 18px 50px rgba(19, 73, 137, .18);
   --hst-foto: none;
+  /* Sobre blanco el mismo gris casi no se ve: hay que subirlo bastante. */
+  --hst-mapa-op: .5;
 }
 
 /*--------------------------------------------------------------
@@ -381,6 +386,55 @@ body.pagina-historia,
   padding: 40px 0 0;
 }
 
+/*--------------------------------------------------------------
+# 6 bis. FONDOS DE MAPA
+# Dos mapas del mismo territorio en los dos extremos del relato.
+# Al inicio, el territorio sin nada dibujado encima: todavía no hay red,
+# hay una idea. En el cierre, el área de cobertura, que es de lo que habla
+# el texto. Poner el mapa de cobertura al principio sería contar el final
+# en la primera página (Julio, 13/08/2026).
+--------------------------------------------------------------*/
+.hst-timeline::before,
+.hst-hoy::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: var(--hst-mapa-op);
+  transition: opacity 1200ms ease;
+}
+
+/* Inicio: se desvanece antes del hito 04, para no arrastrarse por toda la
+   línea de tiempo. */
+.hst-timeline::before {
+  top: 0;
+  height: min(1500px, 160vh);
+  background-image: url("../img/historia/fondo-territorio.webp");
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 50%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 20%, #000 50%, transparent 100%);
+}
+
+/* Cierre: óvalo centrado, para que la silueta del área quede detrás de las
+   cifras y se apague contra los bordes de la banda. */
+.hst-hoy::before {
+  top: 0;
+  bottom: 0;
+  background-image: url("../img/historia/fondo-cobertura.webp");
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 28%, transparent 76%);
+          mask-image: radial-gradient(ellipse at center, #000 28%, transparent 76%);
+}
+
+/* Sin esto el ::before, que está posicionado, tapa el contenido estático. */
+.hst-hoy > .hst-wrap {
+  position: relative;
+  z-index: 1;
+}
+
 /* El eje se alinea con la columna que el grid del hito le reserva.
    historia.js lee el ancho y --hst-poste-esc para dibujar a escala. */
 .hst-eje {
@@ -470,9 +524,17 @@ body.pagina-historia,
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 90px 1fr;
+  /* La columna de la foto pesa más que la del texto: a 1fr/1fr las imágenes
+     quedaban chicas al lado del bloque de texto (Julio, 13/08/2026). Con 1.14
+     y el pasillo reducido a 46px, la foto crece alrededor de un 10%. */
+  grid-template-columns: 1.14fr 90px 1fr;
   align-items: center;
   padding: clamp(70px, 11vh, 130px) 0;
+}
+
+/* En los hitos invertidos la foto está en la columna 3: se espeja el reparto. */
+.hst-hito.hst-invertido {
+  grid-template-columns: 1fr 90px 1.14fr;
 }
 
 /* grid-row explícito en ambos: sin él, el hito invertido manda la foto a la
@@ -482,7 +544,8 @@ body.pagina-historia,
   grid-column: 1;
   grid-row: 1;
   margin: 0;
-  padding-right: 56px;
+  /* 46 y no 56: la foto se arrima 10px al tendido. */
+  padding-right: 46px;
 }
 
 .hst-cuerpo {
@@ -494,7 +557,7 @@ body.pagina-historia,
 .hst-invertido .hst-media {
   grid-column: 3;
   padding-right: 0;
-  padding-left: 56px;
+  padding-left: 46px;
 }
 
 .hst-invertido .hst-cuerpo {
@@ -805,6 +868,8 @@ body.pagina-historia,
 # 11. CIERRE — la red hoy
 --------------------------------------------------------------*/
 .hst-hoy {
+  position: relative;
+  overflow: hidden;
   padding: clamp(70px, 11vh, 130px) 0;
   background: var(--hst-banda);
 }

@@ -1136,7 +1136,11 @@ body.pagina-historia,
     --hst-poste-esc: .86;
   }
 
-  .hst-hito {
+  /* .hst-hito.hst-invertido tiene más especificidad que .hst-hito solo: sin
+     repetirla acá, el invertido conserva la grilla de escritorio (1fr 90px
+     1.14fr) y el texto cae en el pasillo de 90px, palabra por línea. */
+  .hst-hito,
+  .hst-hito.hst-invertido {
     grid-template-columns: 74px 1fr;
     padding: 60px 0;
   }
@@ -1201,7 +1205,8 @@ body.pagina-historia,
     --hst-poste-esc: .62;
   }
 
-  .hst-hito {
+  .hst-hito,
+  .hst-hito.hst-invertido {
     grid-template-columns: 46px 1fr;
     padding: 48px 0;
   }
@@ -1261,7 +1266,8 @@ body.pagina-historia,
     --hst-poste-esc: .5;
   }
 
-  .hst-hito {
+  .hst-hito,
+  .hst-hito.hst-invertido {
     grid-template-columns: 38px 1fr;
   }
 

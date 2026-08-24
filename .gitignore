@@ -29,6 +29,6 @@ deploy/.env
 # ─── Estado local del deploy ─────────────────────────────────────────────────
 deploy/.deploy-cache.json
 
-# ─── Fuentes sin usar ────────────────────────────────────────────────────────
-# Originales de los que ya existe la versión optimizada publicada.
-assets/img/historia/h09-frente-propio.jpeg
+# Nota (Julio, 24/08/2026): los .jpg originales de las fotos de archivo se
+# borran directamente de assets/img/historia en cuanto existe su .webp. No
+# hace falta .gitignore ni exclusión de deploy para un archivo que no está.

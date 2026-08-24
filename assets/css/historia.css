@@ -641,6 +641,16 @@ body.pagina-historia,
   margin-top: 0;
 }
 
+/* Díptico del hito 04: las dos fotos más viejas del archivo, lado a lado. */
+.hst-media-duo {
+  display: flex;
+  gap: 12px;
+}
+
+.hst-media-duo img {
+  width: calc(50% - 6px);
+}
+
 .hst-media figcaption {
   margin-top: 12px;
   font-size: 12px;

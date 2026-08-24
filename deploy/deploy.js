@@ -80,15 +80,22 @@ const ARCHIVOS_FUERA = new Set([
   // nada bueno y puede confundir a quien mire el servidor mañana.
   "Web.config",
 
-  // Original sin optimizar de la foto del frente; la publicada es h09-frente.webp
-  "assets/img/historia/h09-frente-propio.jpeg",
-
   // Clips todavía sin asignar a ningún hito: no están referenciados por
   // historia.html, así que subirlos sería peso muerto en el servidor.
   "assets/video/historia/h06-clip-obra.mp4",
   "assets/video/historia/hoy-clip-red.mp4",
   "assets/img/historia/h06-clip-obra-poster.webp",
-  "assets/img/historia/hoy-clip-red-poster.webp"
+  "assets/img/historia/hoy-clip-red-poster.webp",
+
+  // Fotos de archivo subidas pero todavía sin asignar a ningún hito. Los
+  // .jpg ya usados en la web se borran directamente de la carpeta en cuanto
+  // existe su .webp (Julio, 24/08/2026): no hace falta excluirlos acá.
+  "assets/img/historia/BakandoPalosBR.jpg",
+  "assets/img/historia/Reunion01BR.jpg",
+  "assets/img/historia/ParqueAutomotorBR.jpg",
+
+  // Foto vieja del hito 06: quedó reemplazada por h06-cuadrilla-postes.webp.
+  "assets/img/historia/h06-obra.webp"
 ]);
 
 function seExcluye(rel) {

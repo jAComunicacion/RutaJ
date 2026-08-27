@@ -613,6 +613,67 @@ body.pagina-historia,
   color: var(--hst-verde);
 }
 
+/* Video de las columnas, de fondo del hito de repostación: perceptible pero
+   no protagonista, por eso el tinte azul y la opacidad baja (Julio,
+   27/08/2026). El video ya tiene el audio quitado en el archivo. */
+.hst-hito-columnas .hst-cuerpo {
+  position: relative;
+}
+
+/* Todo el contenido real del texto pinta por encima del video: una vez
+   absoluto, un z-index:0 no alcanza contra hermanos en flujo normal. */
+.hst-hito-columnas .hst-cuerpo > :not(.hst-video-fondo) {
+  position: relative;
+  z-index: 1;
+}
+
+.hst-video-fondo {
+  position: absolute;
+  inset: -20px 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  opacity: .6;
+  pointer-events: none;
+}
+
+.hst-video-fondo video,
+.hst-video-fondo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hst-video-fondo img {
+  display: none;
+}
+
+.hst-video-fondo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--azul);
+  mix-blend-mode: multiply;
+  opacity: .45;
+}
+
+@media (max-width: 767px) {
+  .hst-video-fondo {
+    width: 320px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hst-video-fondo video {
+    display: none;
+  }
+
+  .hst-video-fondo img {
+    display: block;
+  }
+}
+
 /* fotografía */
 .hst-media img {
   display: block;
@@ -639,16 +700,6 @@ body.pagina-historia,
 /* Sin marco, el epígrafe queda flotando: se lo acerca a la imagen. */
 .hst-media-disuelta figcaption {
   margin-top: 0;
-}
-
-/* Díptico del hito 04: las dos fotos más viejas del archivo, lado a lado. */
-.hst-media-duo {
-  display: flex;
-  gap: 12px;
-}
-
-.hst-media-duo img {
-  width: calc(50% - 6px);
 }
 
 .hst-media figcaption {

@@ -287,31 +287,39 @@
 
   /* ==========================================================
      4. FONDO DE VIDEO DEL HITO DE REPOSTACIÓN
-     Alto = alto de la foto (por eso vive dentro del mismo <figure>,
-     ver historia.css). Pero el centrado tiene que ser el de la
-     PANTALLA, no el de la foto — y la foto no está centrada en la
-     pantalla, está en la columna izquierda de la grilla. Sin JS, un
-     % de "left" solo puede centrarse contra su propio contenedor
-     (Julio, 27/08/2026).
+     Ancho real de pantalla, centrado en la PANTALLA (no en la foto: la
+     foto vive en la columna izquierda de la grilla, no en el centro).
+     El borde superior queda pegado al final del rótulo ("Repostación...").
+     Ninguna de las dos cosas sale de un % en CSS porque dependen de dónde
+     cae cada elemento en la grilla real — de ahí el getBoundingClientRect.
+     En celular no corre: el fondo se saca entero por CSS (Julio,
+     27/08/2026).
      ========================================================== */
   (function fondoVideoCentrado() {
     var fondo = document.querySelector('.hst-video-fondo');
     var figura = fondo && fondo.closest('.hst-media');
-    if (!fondo || !figura) return;
+    var hito = figura && figura.closest('.hst-hito');
+    var rotulo = hito && hito.querySelector('.hst-rotulo');
+    if (!fondo || !figura || !rotulo) return;
 
-    function centrar() {
-      var r = figura.getBoundingClientRect();
+    var mqCelular = window.matchMedia('(max-width: 767px)');
+
+    function ubicar() {
+      if (mqCelular.matches) return;
+      var rFigura = figura.getBoundingClientRect();
+      var rRotulo = rotulo.getBoundingClientRect();
       var centroPantalla = window.innerWidth / 2;
-      fondo.style.left = (centroPantalla - r.left) + 'px';
+      fondo.style.left = (centroPantalla - rFigura.left) + 'px';
+      fondo.style.top = (rRotulo.bottom - rFigura.top) + 'px';
     }
 
     var t;
     window.addEventListener('resize', function () {
       clearTimeout(t);
-      t = setTimeout(centrar, 150);
+      t = setTimeout(ubicar, 150);
     });
-    window.addEventListener('load', centrar);
-    centrar();
+    window.addEventListener('load', ubicar);
+    ubicar();
   })();
 
 })();

@@ -614,12 +614,15 @@ body.pagina-historia,
 }
 
 /* Video de las columnas, de fondo del hito de repostación: el mismo recurso
-   de los fondos de mapa del inicio y el cierre (opacidad var(--hst-mapa-op),
-   blend según la escena), pero centrado como una franja que cruza detrás de
-   la foto y del texto a la vez, no a todo el ancho de pantalla — Julio probó
-   eso con los fondos de mapa y "se perdía el efecto" (27/08/2026). Este hito
-   ya vive en el tramo en luz (después del hito 07), así que usa blend
-   multiply como el fondo del cierre, no screen como el del inicio. */
+   de los fondos de mapa del inicio y el cierre — opacidad más presente,
+   blend multiply (este hito vive en el tramo en luz), y el mismo degradé
+   de desvanecimiento arriba/abajo, para que se lea como la misma familia
+   visual y no como un accidente de superposición (Julio, 27/08/2026: "debe
+   cobrar protagonismo... dejemos claro que se trata de un efecto deseado").
+   Ancho real de pantalla (100vw) y borde superior pegado al final del
+   rótulo — ambos calculados en historia.js, que es quien sabe dónde cae
+   cada uno en la grilla real. Ya no se ata al alto de la foto: puede (y
+   debe) sobrepasarla. */
 .hst-hito-columnas {
   position: relative;
 }
@@ -642,24 +645,19 @@ body.pagina-historia,
   background: rgba(255, 255, 255, .55);
 }
 
-/* Medida concreta (Julio, 27/08/2026): el alto queda igual al de la foto —
-   el video es hijo de la misma figure, así que height:100% lo iguala sin
-   necesidad de recalcular nada — y el ancho crece libre según la propia
-   proporción del video (16:9), desbordando la figura hacia el pasillo y el
-   texto sin recortarse contra ella. */
 .hst-video-fondo {
   position: absolute;
-  top: 0;
   left: 50%;
-  height: 100%;
+  width: 100vw;
   aspect-ratio: 16 / 9;
   z-index: 0;
   transform: translateX(-50%);
   overflow: hidden;
-  border-radius: 12px;
-  opacity: var(--hst-mapa-op);
+  opacity: .5;
   mix-blend-mode: multiply;
   pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 85%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 85%, transparent 100%);
 }
 
 .hst-video-fondo video,
@@ -675,10 +673,6 @@ body.pagina-historia,
   display: none;
 }
 
-/* En celular, foto y texto quedan apilados: el video (alto = alto de la
-   foto, ancho libre) desborda hacia los costados, pero body ya tiene
-   overflow-x:hidden (línea ~72), así que no genera scroll horizontal. */
-
 @media (prefers-reduced-motion: reduce) {
   .hst-video-fondo video {
     display: none;
@@ -686,6 +680,14 @@ body.pagina-historia,
 
   .hst-video-fondo img {
     display: block;
+  }
+}
+
+/* En celular, sin fondo de video (Julio, 27/08/2026): a todo el ancho de
+   pantalla y con la foto y el texto apilados, no suma — se saca entero. */
+@media (max-width: 767px) {
+  .hst-video-fondo {
+    display: none;
   }
 }
 

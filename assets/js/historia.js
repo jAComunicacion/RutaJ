@@ -285,4 +285,33 @@
     dlg.addEventListener('click', function (e) { if (e.target === dlg) cerrarVisor(); });
   })();
 
+  /* ==========================================================
+     4. FONDO DE VIDEO DEL HITO DE REPOSTACIÓN
+     Alto = alto de la foto (por eso vive dentro del mismo <figure>,
+     ver historia.css). Pero el centrado tiene que ser el de la
+     PANTALLA, no el de la foto — y la foto no está centrada en la
+     pantalla, está en la columna izquierda de la grilla. Sin JS, un
+     % de "left" solo puede centrarse contra su propio contenedor
+     (Julio, 27/08/2026).
+     ========================================================== */
+  (function fondoVideoCentrado() {
+    var fondo = document.querySelector('.hst-video-fondo');
+    var figura = fondo && fondo.closest('.hst-media');
+    if (!fondo || !figura) return;
+
+    function centrar() {
+      var r = figura.getBoundingClientRect();
+      var centroPantalla = window.innerWidth / 2;
+      fondo.style.left = (centroPantalla - r.left) + 'px';
+    }
+
+    var t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(centrar, 150);
+    });
+    window.addEventListener('load', centrar);
+    centrar();
+  })();
+
 })();

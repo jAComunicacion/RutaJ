@@ -624,7 +624,13 @@ body.pagina-historia,
   position: relative;
 }
 
-.hst-hito-columnas .hst-media,
+.hst-hito-columnas .hst-media {
+  position: relative;
+  overflow: visible;
+}
+
+.hst-hito-columnas .hst-media img,
+.hst-hito-columnas .hst-media figcaption,
 .hst-hito-columnas .hst-cuerpo {
   position: relative;
   z-index: 1;
@@ -636,15 +642,19 @@ body.pagina-historia,
   background: rgba(255, 255, 255, .55);
 }
 
+/* Medida concreta (Julio, 27/08/2026): el alto queda igual al de la foto —
+   el video es hijo de la misma figure, así que height:100% lo iguala sin
+   necesidad de recalcular nada — y el ancho crece libre según la propia
+   proporción del video (16:9), desbordando la figura hacia el pasillo y el
+   texto sin recortarse contra ella. */
 .hst-video-fondo {
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  z-index: 0;
-  width: 760px;
-  max-width: 92%;
+  height: 100%;
   aspect-ratio: 16 / 9;
-  transform: translate(-50%, -50%);
+  z-index: 0;
+  transform: translateX(-50%);
   overflow: hidden;
   border-radius: 12px;
   opacity: var(--hst-mapa-op);
@@ -665,19 +675,9 @@ body.pagina-historia,
   display: none;
 }
 
-/* En celular la foto y el texto quedan apilados, no lado a lado: centrar el
-   video en todo el artículo lo deja flotando en el medio, sin tocar el
-   texto. Se lo ancla abajo, que es donde vive la caja en ese layout. */
-@media (max-width: 767px) {
-  .hst-video-fondo {
-    top: auto;
-    bottom: 0;
-    width: 320px;
-    height: 60%;
-    aspect-ratio: auto;
-    transform: translateX(-50%);
-  }
-}
+/* En celular, foto y texto quedan apilados: el video (alto = alto de la
+   foto, ancho libre) desborda hacia los costados, pero body ya tiene
+   overflow-x:hidden (línea ~72), así que no genera scroll horizontal. */
 
 @media (prefers-reduced-motion: reduce) {
   .hst-video-fondo video {

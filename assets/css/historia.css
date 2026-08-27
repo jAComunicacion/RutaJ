@@ -613,27 +613,42 @@ body.pagina-historia,
   color: var(--hst-verde);
 }
 
-/* Video de las columnas, de fondo del hito de repostación: perceptible pero
-   no protagonista, por eso el tinte azul y la opacidad baja (Julio,
-   27/08/2026). El video ya tiene el audio quitado en el archivo. */
-.hst-hito-columnas .hst-cuerpo {
+/* Video de las columnas, de fondo del hito de repostación: el mismo recurso
+   de los fondos de mapa del inicio y el cierre (opacidad var(--hst-mapa-op),
+   blend según la escena), pero centrado como una franja que cruza detrás de
+   la foto y del texto a la vez, no a todo el ancho de pantalla — Julio probó
+   eso con los fondos de mapa y "se perdía el efecto" (27/08/2026). Este hito
+   ya vive en el tramo en luz (después del hito 07), así que usa blend
+   multiply como el fondo del cierre, no screen como el del inicio. */
+.hst-hito-columnas {
   position: relative;
 }
 
-/* Todo el contenido real del texto pinta por encima del video: una vez
-   absoluto, un z-index:0 no alcanza contra hermanos en flujo normal. */
-.hst-hito-columnas .hst-cuerpo > :not(.hst-video-fondo) {
+.hst-hito-columnas .hst-media,
+.hst-hito-columnas .hst-cuerpo {
   position: relative;
   z-index: 1;
 }
 
+/* La caja del texto necesita transparencia real para que el video se note
+   detrás (Julio: "al menos un 10%", partimos de bastante más). */
+.hst-hito-columnas .hst-caja {
+  background: rgba(255, 255, 255, .55);
+}
+
 .hst-video-fondo {
   position: absolute;
-  inset: -20px 0;
+  top: 50%;
+  left: 50%;
   z-index: 0;
+  width: 760px;
+  max-width: 92%;
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
   overflow: hidden;
   border-radius: 12px;
-  opacity: .6;
+  opacity: var(--hst-mapa-op);
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
@@ -643,24 +658,24 @@ body.pagina-historia,
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: sepia(.5) hue-rotate(180deg) saturate(1.8);
 }
 
 .hst-video-fondo img {
   display: none;
 }
 
-.hst-video-fondo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--azul);
-  mix-blend-mode: multiply;
-  opacity: .45;
-}
-
+/* En celular la foto y el texto quedan apilados, no lado a lado: centrar el
+   video en todo el artículo lo deja flotando en el medio, sin tocar el
+   texto. Se lo ancla abajo, que es donde vive la caja en ese layout. */
 @media (max-width: 767px) {
   .hst-video-fondo {
+    top: auto;
+    bottom: 0;
     width: 320px;
+    height: 60%;
+    aspect-ratio: auto;
+    transform: translateX(-50%);
   }
 }
 

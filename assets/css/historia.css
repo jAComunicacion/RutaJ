@@ -691,6 +691,79 @@ body.pagina-historia,
   }
 }
 
+/*--------------------------------------------------------------
+# 6 ter. FONDOS DE FOTO DE ARCHIVO
+# Mismo recurso que los fondos de mapa (6 bis): fotos sin asignar
+# (postes, parque automotor, reunión de directorio) pasadas a B&N +
+# azul, muy suaves, a todo el ancho real de pantalla. Acá no hay
+# overflow de alto como en el video de columnas: el fondo dura lo
+# que dura su propio tramo. El ancho (100vw) lo calcula historia.js,
+# igual que con el video, porque el contenedor no vive centrado en
+# la pantalla. Sin esto en celular (Julio, 28/08/2026): "lo apenas
+# perceptible se complica y se vuelve NO perceptible". El hito 2022
+# — Balance general y los datos sueltos bajo las fotos SÍ se ven en
+# celular: lo único que se saca es este efecto decorativo.
+--------------------------------------------------------------*/
+.hst-tramo-fondo {
+  position: relative;
+}
+
+/* fix de apilamiento: sin esto, el fondo (position:absolute, z-index:0)
+   pinta encima de los hijos sin position del hito (mismo bug que ya
+   resolvimos en el video de columnas, con .hst-media/.hst-cuerpo). */
+.hst-tiene-fondo-ancho > .hst-cuerpo,
+.hst-tiene-fondo-ancho > .hst-media {
+  position: relative;
+  z-index: 1;
+}
+
+.hst-fondo-ancho {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 100vw;
+  z-index: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: .2;
+  mix-blend-mode: multiply;
+  filter: grayscale(1) sepia(.4) hue-rotate(180deg) saturate(1.7);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+}
+
+.hst-fondo-postes {
+  background-image: url("../img/historia/h-archivo-bajando-postes.webp");
+}
+
+.hst-fondo-automotor {
+  background-image: url("../img/historia/h-archivo-parque-automotor.webp");
+}
+
+.hst-fondo-reunion {
+  background-image: url("../img/historia/h-archivo-reunion-directorio-2004.webp");
+}
+
+@media (max-width: 767px) {
+  .hst-fondo-ancho {
+    display: none;
+  }
+}
+
+/* dato suelto bajo la foto: mismo criterio retórico que los epígrafes,
+   a media voz para que subraye sin acaparar (Julio, 28/08/2026). */
+.hst-dato-suelto {
+  display: block;
+  margin-top: 4px;
+  font-size: .85em;
+  font-style: italic;
+  opacity: .68;
+}
+
 /* fotografía */
 .hst-media img {
   display: block;

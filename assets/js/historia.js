@@ -322,4 +322,37 @@
     ubicar();
   })();
 
+  /* ==========================================================
+     5. FONDOS DE FOTO DE ARCHIVO — mismo criterio que el fondo de
+     video del hito 12 (sección 4): ancho real de pantalla, calculado
+     por JS porque el contenedor no vive centrado en la pantalla.
+     Acá no hay que anclar el borde superior a ningún rótulo: el
+     fondo dura lo que dura su propio contenedor (top:0, height:100%
+     ya resuelto por CSS), así que solo hace falta el centrado
+     horizontal. No corre en celular (Julio, 28/08/2026).
+     ========================================================== */
+  (function fondosArchivoAncho() {
+    var fondos = document.querySelectorAll('.hst-fondo-ancho');
+    if (!fondos.length) return;
+
+    var mqCelular = window.matchMedia('(max-width: 767px)');
+
+    function ubicar() {
+      if (mqCelular.matches) return;
+      var centroPantalla = window.innerWidth / 2;
+      [].forEach.call(fondos, function (fondo) {
+        var r = fondo.parentElement.getBoundingClientRect();
+        fondo.style.left = (centroPantalla - r.left) + 'px';
+      });
+    }
+
+    var t;
+    window.addEventListener('resize', function () {
+      clearTimeout(t);
+      t = setTimeout(ubicar, 150);
+    });
+    window.addEventListener('load', ubicar);
+    ubicar();
+  })();
+
 })();

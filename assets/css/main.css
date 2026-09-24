@@ -1365,26 +1365,30 @@ section {
 
 /*--------------------------------------------------------------
 # ESLOGAN DEL LOGO — "Comprometidos con nuestra gente"
-# Sitewide: header (logo con imagen) y footer (logo en texto).
-# Usa --font-secondary (Poppins), la tipografía secundaria propia
-# del sistema — no la del isotipo, que es un dibujo, no un texto
-# (jArismendi®, 24/09/2026).
+# Solo en el header (el del footer se sacó: se superponía en sentido
+# con el texto institucional "Somos una Cooperativa...", Julio,
+# 24/09/2026). Usa --font-secondary (Poppins), la tipografía
+# secundaria propia del sistema — no la del isotipo, que es un
+# dibujo, no un texto.
+#
+# El logotipo (ícono + nombre) NO se toca: .logo-textos queda con
+# position:relative pero SIN flex, así el nombre conserva exactamente
+# su tamaño y posición de siempre dentro de la fila del header. El
+# eslogan se cuelga con position:absolute debajo, fuera del flujo:
+# no sube el nombre, no le agrega alto al bloque que centra el header
+# (jArismendi®, 24/09/2026: "el logotipo... no cambia absolutamente
+# nada, excepto el agregado del eslogan").
 --------------------------------------------------------------*/
 .logo-textos {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  line-height: 1.15;
-}
-
-.logo-textos h1,
-.logo-textos .logo-txt {
-  margin: 0;
-  font-size: 24px;
+  position: relative;
 }
 
 .logo-eslogan {
-  margin: 2px 0 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 2px 0 0 15px;
+  white-space: nowrap;
   font-family: var(--font-secondary);
   font-style: italic;
   font-weight: 400;
@@ -1393,27 +1397,13 @@ section {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.header .logo-eslogan {
-  margin-left: 15px;
-}
-
-.footer .footer-info .logo-eslogan-footer {
-  margin: 2px 0 0 15px;
-  font-size: 13px;
-}
-
-/* En celular "Cooperativa Ruta J" ya se parte en dos líneas (30px original,
-   sin breakpoint propio): con el eslogan sumado, el bloque de 3 líneas
-   supera el .header fijo de 70px. Se achica el título y se saca el eslogan
-   del header (el del footer no tiene esta restricción de alto) — Julio no
-   pidió resolver el salto de línea del título en sí, solo evitar que el
-   agregado de hoy rompa el header (jArismendi®, 24/09/2026). */
+/* En celular ya no hay alto que romper (el eslogan está fuera del flujo),
+   pero se saca igual: no hay lugar limpio donde mostrarlo sin que pise el
+   contenido de abajo (Julio, 27/08/2026, mismo criterio del video de
+   repostación: "lo apenas perceptible se complica y se vuelve NO
+   perceptible" en pantallas chicas). */
 @media (max-width: 575px) {
-  .logo-textos h1,
-  .logo-textos .logo-txt {
-    font-size: 18px;
-  }
-  .header .logo-eslogan {
+  .logo-eslogan {
     display: none;
   }
 }

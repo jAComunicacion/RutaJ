@@ -100,9 +100,11 @@ body.pagina-historia,
               border-color 1200ms var(--hst-ease);
 }
 
-/* el <h1> del logo se degradó a <span>: le devolvemos su aspecto */
+/* el <h1> del logo se degradó a <span>: le devolvemos su aspecto.
+   24px y no 30px: con el eslogan debajo (.logo-textos, main.css), el
+   mismo tamaño que en el resto del sitio (jArismendi®, 24/09/2026). */
 .pagina-historia .header .logo .logo-txt {
-  font-size: 30px;
+  font-size: 24px;
   margin: 0;
   font-weight: 600;
   /* el <h1> original heredaba el 1.2 de Bootstrap; un <span> tomaría el 1.65

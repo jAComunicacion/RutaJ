@@ -16,7 +16,7 @@
     <!-- fuentes cargadas desde Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
     <!-- imagen del hero: es el LCP de esta página -->
     <link rel="preload" as="image" href="assets/img/historia/hero-coop.webp" fetchpriority="high">
@@ -32,7 +32,7 @@
     <!-- El ?v= es un rompe-caché: subirle el número obliga al navegador a
          bajar la hoja de nuevo. Hay que incrementarlo en cada cambio de CSS,
          si no el visitante sigue viendo la versión vieja. -->
-    <link href="assets/css/historia.css?v=16" rel="stylesheet">
+    <link href="assets/css/historia.css?v=17" rel="stylesheet">
 
     <!-- Datos estructurados -->
     <script type="application/ld+json">
@@ -81,7 +81,10 @@
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="Cooperativa Ruta J">
                 <!-- degradado de h1 a span: el unico h1 de esta pagina es su titulo -->
-                <span class="logo-txt">Cooperativa Ruta J</span>
+                <div class="logo-textos">
+                    <span class="logo-txt">Cooperativa Ruta J</span>
+                    <p class="logo-eslogan">Comprometidos con nuestra gente</p>
+                </div>
             </a>
             <nav id="navbar" class="navbar">
                 <ul>
@@ -723,6 +726,7 @@
                     <a href="index.html" class="logo d-flex align-items-center">
                         <span>Coop Ruta J</span>
                     </a>
+                    <p class="logo-eslogan logo-eslogan-footer">Comprometidos con nuestra gente</p>
                     <p align="left">Somos una Cooperativa de Servicios que provee energía eléctrica a una vasta zona en la provincia de Entre Ríos</p>
                     <div class="social-links d-flex mt-4">
                         <a href="https://m.facebook.com/p/Cooperativa-de-Servicios-P%C3%BAblicos-Ruta-J-100054534531136/" class="facebook"><i class="bi bi-facebook"></i></a>

@@ -1362,3 +1362,58 @@ section {
     margin-top: 10px;
   }
 }
+
+/*--------------------------------------------------------------
+# ESLOGAN DEL LOGO — "Comprometidos con nuestra gente"
+# Sitewide: header (logo con imagen) y footer (logo en texto).
+# Usa --font-secondary (Poppins), la tipografía secundaria propia
+# del sistema — no la del isotipo, que es un dibujo, no un texto
+# (jArismendi®, 24/09/2026).
+--------------------------------------------------------------*/
+.logo-textos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.15;
+}
+
+.logo-textos h1,
+.logo-textos .logo-txt {
+  margin: 0;
+  font-size: 24px;
+}
+
+.logo-eslogan {
+  margin: 2px 0 0;
+  font-family: var(--font-secondary);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.header .logo-eslogan {
+  margin-left: 15px;
+}
+
+.footer .footer-info .logo-eslogan-footer {
+  margin: 2px 0 0 15px;
+  font-size: 13px;
+}
+
+/* En celular "Cooperativa Ruta J" ya se parte en dos líneas (30px original,
+   sin breakpoint propio): con el eslogan sumado, el bloque de 3 líneas
+   supera el .header fijo de 70px. Se achica el título y se saca el eslogan
+   del header (el del footer no tiene esta restricción de alto) — Julio no
+   pidió resolver el salto de línea del título en sí, solo evitar que el
+   agregado de hoy rompa el header (jArismendi®, 24/09/2026). */
+@media (max-width: 575px) {
+  .logo-textos h1,
+  .logo-textos .logo-txt {
+    font-size: 18px;
+  }
+  .header .logo-eslogan {
+    display: none;
+  }
+}

@@ -1222,6 +1222,37 @@ section {
   white-space: normal;
 }
 
+/* Boton del hero: color de marca (antes quedaba en el azul por defecto
+   de Bootstrap) + un resplandor leve que "respira", en la misma linea
+   del encendido de historia.html pero mucho mas sutil y permanente.
+   Usa sombra hacia ADENTRO (inset) y brillo, no hacia afuera: .carousel-inner
+   de Bootstrap tiene overflow:hidden y recorta cualquier sombra que se
+   salga de la caja del boton — se nota sobre todo en celular, donde el
+   boton queda ancho 100% pegado a los bordes del caption. */
+.carousel-header .carousel-caption .btn-hover-bg.btn-primary {
+  background-color: var(--azul);
+  border-color: var(--azul);
+  transition: background-color .3s ease, transform .2s ease;
+  animation: heroGlow 3.6s ease-in-out infinite;
+}
+
+.carousel-header .carousel-caption .btn-hover-bg.btn-primary:hover {
+  background-color: #1a5aa8;
+  border-color: #1a5aa8;
+  transform: translateY(-1px);
+}
+
+@keyframes heroGlow {
+  0%, 100% { box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0); filter: brightness(1); }
+  50%      { box-shadow: inset 0 0 16px 2px rgba(255, 255, 255, .3); filter: brightness(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-header .carousel-caption .btn-hover-bg.btn-primary {
+    animation: none;
+  }
+}
+
 .carousel-header .carousel-caption .p-3 {
   max-width: 900px;
   width: 90vw;
